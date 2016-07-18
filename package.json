@@ -18,7 +18,9 @@
     "chai": "^3.5.0",
     "chai-spies": "^0.7.1",
     "eslint": "^3.1.0",
-    "mocha": "^2.5.3"
+    "mocha": "^2.5.3",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {}
 }
