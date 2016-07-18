@@ -75,7 +75,8 @@ describe('Robot', () => {
                 y: null,
                 facing: null,
                 name: 'Winston',
-                placed: false
+                placed: false,
+                renderCallback: false
             };
 
             const notPlaced2 = {
@@ -83,7 +84,8 @@ describe('Robot', () => {
                 y: null,
                 facing: null,
                 name: 'Kellin',
-                placed: false
+                placed: false,
+                renderCallback: false
             };
 
             expect(winston.move()).to.eql(notPlaced);
@@ -104,7 +106,8 @@ describe('Robot', () => {
                 y: 1,
                 facing: 'NORTH',
                 name: 'JT',
-                placed: true
+                placed: true,
+                renderCallback: false
             });
 
             expect(jt.place(0,0,'north').move().move().move().move().move()).to.eql({
@@ -112,7 +115,8 @@ describe('Robot', () => {
                 y: 4,
                 facing: 'NORTH',
                 name: 'JT',
-                placed: true
+                placed: true,
+                renderCallback: false
             });
         });
 
@@ -124,7 +128,8 @@ describe('Robot', () => {
                 y: 0,
                 facing: 'SOUTH',
                 name: 'Taylor',
-                placed: true
+                placed: true,
+                renderCallback: false
             });
 
             expect(taylor.place(0,0,'south').move().move()).to.eql({
@@ -132,7 +137,8 @@ describe('Robot', () => {
                 y: 0,
                 facing: 'SOUTH',
                 name: 'Taylor',
-                placed: true
+                placed: true,
+                renderCallback: false
             });
         });
 
@@ -144,7 +150,8 @@ describe('Robot', () => {
                 y: 3,
                 facing: 'WEST',
                 name: 'Adam',
-                placed: true
+                placed: true,
+                renderCallback: false
             });
 
             expect(adam.place(3,3,'WEST').move()).to.eql({
@@ -152,7 +159,8 @@ describe('Robot', () => {
                 y: 3,
                 facing: 'WEST',
                 name: 'Adam',
-                placed: true
+                placed: true,
+                renderCallback: false
             });
 
             expect(adam.place(3,3,'WEST').move().move().move()).to.eql({
@@ -160,7 +168,8 @@ describe('Robot', () => {
                 y: 3,
                 facing: 'WEST',
                 name: 'Adam',
-                placed: true
+                placed: true,
+                renderCallback: false
             });
 
             expect(adam.place(3,3,'WEST').move().move().move().move().move()).to.eql({
@@ -168,7 +177,8 @@ describe('Robot', () => {
                 y: 3,
                 facing: 'WEST',
                 name: 'Adam',
-                placed: true
+                placed: true,
+                renderCallback: false
             });
         });
 
@@ -180,7 +190,8 @@ describe('Robot', () => {
                 y: 0,
                 facing: 'EAST',
                 name: 'Clint',
-                placed: true
+                placed: true,
+                renderCallback: false
             });
 
             expect(clint.place(1,2, 'EAST').move().move().move().move()).to.eql({
@@ -188,7 +199,8 @@ describe('Robot', () => {
                 y: 2,
                 facing: 'EAST',
                 name: 'Clint',
-                placed: true
+                placed: true,
+                renderCallback: false
             });
 
             expect(clint.place(1,3, 'EAST').move().move()).to.eql({
@@ -196,7 +208,8 @@ describe('Robot', () => {
                 y: 3,
                 facing: 'EAST',
                 name: 'Clint',
-                placed: true
+                placed: true,
+                renderCallback: false
             });
         });
     });
@@ -252,7 +265,8 @@ describe('Robot', () => {
                     y: 2,
                     facing: 'NORTH',
                     name: 'Jeremy',
-                    placed: true
+                    placed: true,
+                    renderCallback: false
                 });
         });
     });

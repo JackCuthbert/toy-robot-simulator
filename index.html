@@ -5,10 +5,160 @@
     <title>Toy Robot</title>
     <style>
         *, *::before, *::after { box-sizing: border-box; }
+        body {
+            background-color: rgb(50,50,60);
+            margin: 0;
+            padding-left: 40px;
+            font-family: sans-serif;
+            color: rgb(240,240,240);
+        }
+
+        .wrap {
+            display: flex;
+            height: 100vh;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .field {
+            width: 500px;
+        }
+
+        .controls {
+            width: calc(100% - 540px);
+            padding-left: 40px;
+            padding-right: 40px;
+            margin-left: 40px;
+            background-color: rgb(60,60,70);
+        }
+
+        button {
+            background-color: rgb(90,90,90);
+            border: none;
+            color: rgb(240,240,240);
+        }
+
+        button:hover {
+            cursor: pointer;
+            background-color: rgb(100,100,100);
+        }
+
+        label {
+            margin-bottom: 5px;
+        }
+
+        .control-group button,
+        .control-group input,
+        .control-group select {
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .control-group.flex {
+            display: flex;
+        }
+
+        .control-group.flex button {
+            flex: 1;
+        }
+
+        .log {
+            height: 200px;
+            overflow: auto;
+            background-color: rgb(100,100,100);
+            padding: 0 20px;
+        }
+
+        .table {
+            margin: 0 auto;
+            width: 500px;
+            height: 500px;
+            border: 1px solid grey;
+            position: relative;
+        }
+
+        .robot {
+            display: none;
+            position: absolute;
+            width: 20%;
+            height: 20%;
+            background-color: rgb(250,150,150);
+            transition: bottom 0.3s ease-in-out,
+                        left 0.3s ease-in-out;
+        }
+
+        .robot::before {
+            display: block;
+            position: absolute;
+            content: "";
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: rgb(250, 100, 100);
+        }
+
+        .placed {
+            display: block;
+        }
+
+        .robot[data-direction="north"] {
+            transform: rotate(0deg);
+        }
+
+        .robot[data-direction="south"] {
+            transform: rotate(180deg);
+        }
+
+        .robot[data-direction="east"] {
+            transform: rotate(90deg);
+        }
+
+        .robot[data-direction="west"] {
+            transform: rotate(270deg);
+        }
     </style>
 </head>
 <body>
-    
+    <div class="wrap">
+        <div class="field">
+            <h1>Field</h1>
+            <div class="table">
+                <div class="robot"></div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <h1>Controls</h1>
+            <div class="control-group main">
+
+                <label>X Coordinate</label>
+                <input class='placeX' type='number' pattern="0-4" />
+
+                <label>Y Coordinate</label>
+                <input class='placeY' type='number' pattern="0-4" />
+
+                <label>Direction Facing</label>
+                <select class='placeDirection'>
+                    <option value='NORTH' selected="selected">North</option>
+                    <option value='SOUTH'>South</option>
+                    <option value='EAST'>East</option>
+                    <option value='WEST'>West</option>
+                </select>
+
+                <button class="place">Place</button>
+            </div>
+            <div class="control-group flex">
+                <button class="move">Move</button>
+                <button class="rotateLeft">Rotate Left</button>
+                <button class="rotateRight">Rotate Right</button>
+                <button class="report">Report</button>
+                <button class="remove">Remove</button>
+            </div>
+            <div class="log"></div>
+        </div>
+    </div>
     <script src="/bundle.js"></script>
 </body>
 </html>

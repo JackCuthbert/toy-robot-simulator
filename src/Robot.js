@@ -4,12 +4,13 @@ export default class Robot {
      * @param {string} name - The name of the robot
      * @constructor
      */
-    constructor(name) {
+    constructor(name, renderCallback = false) {
         this.x = null;
         this.y = null;
         this.facing = null;
         this.name = name;
         this.placed = false;
+        this.renderCallback = renderCallback;
     }
 
     /*
@@ -17,12 +18,12 @@ export default class Robot {
      * --------------------*/
 
     /**
-    * Place the robot at specified location and orientation
-    * @param {number} x - The x coordinate of the robot
-    * @param {number} y - The y coordinate of the robot
-    * @param {string} facing - The direction the robot is facing
-    * @return {object} The robot
-    */
+     * Place the robot at specified location and orientation
+     * @param {number} x - The x coordinate of the robot
+     * @param {number} y - The y coordinate of the robot
+     * @param {string} facing - The direction the robot is facing
+     * @return {object} The robot
+     */
     place(x, y, facing) {
         if (this._isValidPosition(x) && this._isValidPosition(y)) {
             this.x = x;
@@ -39,6 +40,17 @@ export default class Robot {
 
         // Robot is now placed!
         this.placed = true;
+        if (this.renderCallback) this.renderCallback.bind(null, this).call();
+        return this;
+    }
+
+    /**
+     * Remove the robot from the table
+     * @return {object} The robot
+     */
+    remove() {
+        this.placed = false;
+        if (this.renderCallback) this.renderCallback.bind(null, this).call();
         return this;
     }
 
@@ -80,6 +92,7 @@ export default class Robot {
             this.report();
         }
 
+        if (this.renderCallback) this.renderCallback.bind(null, this).call();
         return this;
     }
 
@@ -108,6 +121,7 @@ export default class Robot {
             this.report();
         }
 
+        if (this.renderCallback) this.renderCallback.bind(null, this).call();
         return this;
     }
 
@@ -132,10 +146,12 @@ export default class Robot {
             else if (this.facing === 'WEST') {
                 this.facing = 'NORTH';
             }
+
         } else {
             this.report();
         }
 
+        if (this.renderCallback) this.renderCallback.bind(null, this).call();
         return this;
     }
 
@@ -150,7 +166,11 @@ export default class Robot {
      * @return {boolean} Is valid position
      */
     _isValidPosition(value) {
-        return value <= 4 && value >= 0;
+        if (value <= 4 && value >= 0) {
+            return true;
+        } else {
+            console.log(`Invalid move when facing ${this.facing}, try turning around!`);
+        }
     }
 
     /**
