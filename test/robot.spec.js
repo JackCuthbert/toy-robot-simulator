@@ -1,4 +1,7 @@
+// Setup chai
+chai.use(spies);
 import chai, { expect } from 'chai';
+import spies from 'chai-spies';
 
 // To test...
 import Robot from '../src/Robot';
@@ -6,12 +9,43 @@ import Robot from '../src/Robot';
 describe('Robot', () => {
 
     describe('#report', () => {
-        it('should return correct placement', () => {
+        it('should run console.log once for each robot', () => {
+
+            // Ensure that console log is run when report() is fired
+            const logSpy = chai.spy.on(console, 'log');
+
             const danny = new Robot('Danny');
             const dennis = new Robot('Dennis');
 
-            expect(danny.place(0,0,'NORTH').report()).to.eql({ x: 0, y: 0, facing: 'NORTH', name: 'Danny' });
-            expect(dennis.place(1,2,'SOUTH').report()).to.eql({ x: 1, y: 2, facing: 'SOUTH', name: 'Dennis' });
+            danny.place(0,0,'NORTH').report();
+            dennis.place(1,2,'SOUTH').report();
+
+            expect(logSpy).to.have.been.called.twice;
+        });
+
+        it('should run console.log multiple times for multiple robots', () => {
+
+            // Ensure that console log is run when report() is fired
+            const logSpy = chai.spy.on(console, 'log');
+
+            const danny = new Robot('Danny');
+            const dennis = new Robot('Dennis');
+
+            danny.place(0,0,'NORTH').report().move().report().left().report();
+            dennis.place(1,2,'SOUTH').report().left().move().right().move().report();
+
+            expect(logSpy).to.have.been.called.exactly(5);
+        });
+
+        it('should log that the robot is not on the table when moves are attemped', () => {
+            const logSpy = chai.spy.on(console, 'log');
+
+            const steven = new Robot('Steven');
+
+            steven.move().move().right().left();
+
+            expect(logSpy).to.have.been.called.exactly(4);
+            expect(logSpy).to.have.been.called.with('I\'m not on the table! use .place(x, y, direction) to place me.');
         });
     });
 
@@ -31,9 +65,7 @@ describe('Robot', () => {
                 ollie.place(4,0,'DERP');
             }).to.throw();
         });
-    });
 
-    describe('#move', () => {
         it('should return nulls if the robot isn\'t placed', () => {
             const winston = new Robot('Winston');
             const kellin = new Robot('Kellin');
@@ -42,14 +74,16 @@ describe('Robot', () => {
                 x: null,
                 y: null,
                 facing: null,
-                name: 'Winston'
+                name: 'Winston',
+                placed: false
             };
 
             const notPlaced2 = {
                 x: null,
                 y: null,
                 facing: null,
-                name: 'Kellin'
+                name: 'Kellin',
+                placed: false
             };
 
             expect(winston.move()).to.eql(notPlaced);
@@ -58,6 +92,9 @@ describe('Robot', () => {
             expect(kellin.move()).to.eql(notPlaced2);
             expect(kellin.move().move()).to.eql(notPlaced2);
         });
+    });
+
+    describe('#move', () => {
 
         it('should return the currect coordinates when moved NORTH after being placed', () => {
             const jt = new Robot('JT');
@@ -66,14 +103,16 @@ describe('Robot', () => {
                 x: 0,
                 y: 1,
                 facing: 'NORTH',
-                name: 'JT'
+                name: 'JT',
+                placed: true
             });
 
             expect(jt.place(0,0,'north').move().move().move().move().move()).to.eql({
                 x: 0,
                 y: 4,
                 facing: 'NORTH',
-                name: 'JT'
+                name: 'JT',
+                placed: true
             });
         });
 
@@ -84,14 +123,16 @@ describe('Robot', () => {
                 x: 0,
                 y: 0,
                 facing: 'SOUTH',
-                name: 'Taylor'
+                name: 'Taylor',
+                placed: true
             });
 
             expect(taylor.place(0,0,'south').move().move()).to.eql({
                 x: 0,
                 y: 0,
                 facing: 'SOUTH',
-                name: 'Taylor'
+                name: 'Taylor',
+                placed: true
             });
         });
 
@@ -102,30 +143,35 @@ describe('Robot', () => {
                 x: 0,
                 y: 3,
                 facing: 'WEST',
-                name: 'Adam'
+                name: 'Adam',
+                placed: true
             });
 
             expect(adam.place(3,3,'WEST').move()).to.eql({
                 x: 2,
                 y: 3,
                 facing: 'WEST',
-                name: 'Adam'
+                name: 'Adam',
+                placed: true
             });
 
             expect(adam.place(3,3,'WEST').move().move().move()).to.eql({
                 x: 0,
                 y: 3,
                 facing: 'WEST',
-                name: 'Adam'
+                name: 'Adam',
+                placed: true
             });
 
             expect(adam.place(3,3,'WEST').move().move().move().move().move()).to.eql({
                 x: 0,
                 y: 3,
                 facing: 'WEST',
-                name: 'Adam'
+                name: 'Adam',
+                placed: true
             });
         });
+
         it('should return the correct coordinates when moved EAST after being placed', () => {
             const clint = new Robot('Clint');
 
@@ -133,21 +179,24 @@ describe('Robot', () => {
                 x: 1,
                 y: 0,
                 facing: 'EAST',
-                name: 'Clint'
+                name: 'Clint',
+                placed: true
             });
 
             expect(clint.place(1,2, 'EAST').move().move().move().move()).to.eql({
                 x: 4,
                 y: 2,
                 facing: 'EAST',
-                name: 'Clint'
+                name: 'Clint',
+                placed: true
             });
 
             expect(clint.place(1,3, 'EAST').move().move()).to.eql({
                 x: 3,
                 y: 3,
                 facing: 'EAST',
-                name: 'Clint'
+                name: 'Clint',
+                placed: true
             });
         });
     });
@@ -190,7 +239,21 @@ describe('Robot', () => {
 
     describe('#place, #move, #left, #right', () => {
         it('should return the correct coordinates and facing direction after multiple operations', () => {
+            const jeremy = new Robot('Jeremy');
 
+            expect(jeremy.place(0,0,'NORTH')
+                .move()
+                .right()
+                .move()
+                .move()
+                .left()
+                .move()).to.eql({
+                    x: 2,
+                    y: 2,
+                    facing: 'NORTH',
+                    name: 'Jeremy',
+                    placed: true
+                });
         });
     });
 });
