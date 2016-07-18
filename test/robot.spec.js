@@ -97,6 +97,12 @@ describe('Robot', () => {
     });
 
     describe('#move', () => {
+        it('should set placed false', () => {
+            expect(new Robot('Gerald').place(0,0,'NORTH').remove().placed).to.eql(false);
+        });
+    });
+
+    describe('#move', () => {
 
         it('should return the currect coordinates when moved NORTH after being placed', () => {
             const jt = new Robot('JT');

@@ -8,8 +8,8 @@ export default class Robot {
         this.x = null;
         this.y = null;
         this.facing = null;
-        this.name = name;
         this.placed = false;
+        this.name = name;
         this.renderCallback = renderCallback;
     }
 
@@ -56,7 +56,7 @@ export default class Robot {
 
     /**
      * Log the current robot information
-     * @return {Robot} - The robot
+     * @return {Robot} The robot
      */
     report() {
         if (!this.placed) {
@@ -69,7 +69,7 @@ export default class Robot {
 
     /**
      * Move the robot in the direction it's facing
-     * @return {Robot} - The robot
+     * @return {Robot} The robot
      */
     move() {
         if (this.placed) {
@@ -98,7 +98,7 @@ export default class Robot {
 
     /**
      * Rotate the robot left
-     * @return {Robot} - The robot
+     * @return {Robot} The robot
      */
     left() {
         if (this.placed) {
@@ -127,7 +127,7 @@ export default class Robot {
 
     /**
      * Rotate the robot right
-     * @return {Robot} - The robot
+     * @return {Robot} The robot
      */
     right() {
         if (this.placed) {

@@ -9,20 +9,27 @@ const robby = new Robot('Robby');
 
 // Chaining move methods
 robby.place(0, 0, 'NORTH').move().right().move().move().left().move()
-    .report(); // Output: 2, 2, NORTH
+    .report(); // 2, 2, NORTH
 
 // Chaining placements
 robby.place(0, 0, 'NORTH').move().right().move().move().left().move().right()
-    .report() // Output: 2, 2, EAST
+    .report() // 2, 2, EAST
     .place(1, 4, 'SOUTH').move().move().left().move().right().move()
-    .report() // Output: 2, 1, SOUTH
+    .report() // 2, 1, SOUTH
 
 // Ignoring placements
 const noPlaceForMe = new Robot('Mr Lonely');
 
 noPlaceForMe.move().move().move().right()
-    .report(); // Output: I'm not on the table!
+    .report(); // I'm not on the table! use .place(x, y, direction) to place me.
 
+// With a render function
+const robot = new Robot('Mr. Roboto', renderFunction);
+
+// All methods that change the orientation or the position will trigger this
+function renderFunction(robot) {
+    console.log(robot); // { x: null, y: null, name: 'Mr. Roboto', ... }
+}
 ```
 
 ### API
@@ -31,6 +38,9 @@ noPlaceForMe.move().move().move().right()
 
 Place the robot at `x` and `y`, with a `facing` direction.
 
+#### `.remove()`
+
+Remove the robot from the table.
 
 #### `.move()`
 
@@ -43,3 +53,11 @@ Rotate the robot to the left to face a new direction.
 #### `.right()`
 
 Rotate the robot to the right to face a new direction.
+
+## GUI to control robot
+
+```
+$ npm install
+$ npm start
+```
+Open <http://localhost:8080/>.

@@ -36,6 +36,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.querySelector('.remove').addEventListener('click', e => {
+        document.querySelector('.placeX').value = 0;
+        document.querySelector('.placeY').value = 0;
         robot.remove();
     });
 
@@ -51,7 +53,6 @@ function renderFunction(robot) {
 
     robotElement.setAttribute('data-direction', robot.facing.toLowerCase());
     robotElement.setAttribute('style', `bottom: ${robot.y * 20}%; left: ${robot.x * 20}%`);
-
 }
 
 // Little console output override

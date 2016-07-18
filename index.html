@@ -43,6 +43,16 @@
             background-color: rgb(100,100,100);
         }
 
+        button.place {
+            color: rgb(40,40,40);
+            background-color: rgb(130,240,130);
+        }
+
+        button.remove {
+            color: rgb(240,240,240);
+            background-color: rgb(250, 100, 100);
+        }
+
         label {
             margin-bottom: 5px;
         }
@@ -83,7 +93,9 @@
             position: absolute;
             width: 20%;
             height: 20%;
-            background-color: rgb(250,150,150);
+            padding: 40px 5px;
+            text-align: center;
+            background-color: rgb(80,80,250);
             transition: bottom 0.3s ease-in-out,
                         left 0.3s ease-in-out;
         }
@@ -95,7 +107,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 5px;
+            height: 10px;
             background-color: rgb(250, 100, 100);
         }
 
@@ -123,9 +135,9 @@
 <body>
     <div class="wrap">
         <div class="field">
-            <h1>Field</h1>
+            <h1>Table</h1>
             <div class="table">
-                <div class="robot"></div>
+                <div class="robot">This side up</div>
             </div>
         </div>
 
@@ -134,10 +146,10 @@
             <div class="control-group main">
 
                 <label>X Coordinate</label>
-                <input class='placeX' type='number' pattern="0-4" />
+                <input class='placeX' type='number' value='0' />
 
                 <label>Y Coordinate</label>
-                <input class='placeY' type='number' pattern="0-4" />
+                <input class='placeY' type='number' value='0' />
 
                 <label>Direction Facing</label>
                 <select class='placeDirection'>
