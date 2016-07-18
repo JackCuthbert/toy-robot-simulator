@@ -18,6 +18,7 @@ export default class Robot {
     /**
      * Check if the supplied position is valid
      * @param {number} value - The x or y coordinate for checking.
+     * @return {boolean} Is valid position
      */
     _isValidPosition(value) {
         return value <= 4 && value >= 0;
@@ -26,9 +27,18 @@ export default class Robot {
     /**
      * Check if the supplied facing direction is valid
      * @param {string} str - The direction string for checking
+     * @return {boolean} Is valid direction
      */
     _isValidDirection(str) {
         return /(north|south|east|west)/gi.test(str);
+    }
+
+    /**
+     * Check if the robot has been placed
+     * @return {boolean} Is placed
+     */
+    _isPlaced() {
+        return this.x !== null && this.y !== null && this.facing !== null;
     }
 
     /*
@@ -51,7 +61,7 @@ export default class Robot {
         }
 
         if (this._isValidDirection(facing)) {
-            this.facing = facing;
+            this.facing = facing.toUpperCase();
         } else {
             throw new Error('Supplied invalid direction');
         }
@@ -64,7 +74,7 @@ export default class Robot {
      * @return {Robot} - The robot
      */
     report() {
-        console.log(this);
+        console.log(`Output: ${this.x}, ${this.y}, ${this.facing.toUpperCase()}`);
         return this;
     }
 
@@ -73,33 +83,90 @@ export default class Robot {
      * @return {Robot} - The robot
      */
     move() {
-        if (this.x === null || this.y === null || this.facing === null) {
-            return this;
-        } else {
-            switch (this.facing) {
-                case 'NORTH':
-                    if (this._isValidPosition(this.y + 1)) {
-                        this.y = this.y + 1;
-                    }
-                    return this;
-                case 'SOUTH':
-                    if (this._isValidPosition(this.y - 1)) {
-                        this.y = this.y - 1;
-                    }
-                    return this;
-                case 'EAST':
-                    if (this._isValidPosition(this.x + 1)) {
-                        this.x = this.x + 1;
-                    }
-                    return this;
-                case 'WEST':
-                    if (this._isValidPosition(this.x - 1)) {
-                        this.x = this.x - 1;
-                    }
-                    return this;
-                default:
-                    return this;
+        if (this._isPlaced()) {
+
+            // Test for each facing option and move appropriately
+            if (this.facing === 'NORTH') {
+                if (this._isValidPosition(this.y + 1)) this.y = this.y + 1;
+            }
+
+            else if (this.facing === 'SOUTH') {
+                if (this._isValidPosition(this.y - 1)) this.y = this.y - 1;
+            }
+
+            else if (this.facing === 'EAST') {
+                if (this._isValidPosition(this.x + 1)) this.x = this.x + 1;
+            }
+
+            else if (this.facing === 'WEST') {
+                if (this._isValidPosition(this.x - 1)) this.x = this.x - 1;
+            }
+
+            // Probably won't get to here as there's another check when placing
+            else {
+                throw new Error('Supplied invalid direction');
             }
         }
+
+        // Retun the robot!
+        return this;
+    }
+
+    /**
+     * Rotate the robot left
+     * @return {Robot} - The robot
+     */
+    left() {
+        if (this.facing === 'NORTH') {
+            this.facing = 'WEST';
+        }
+
+        else if (this.facing === 'WEST') {
+            this.facing = 'SOUTH';
+        }
+
+        else if (this.facing === 'SOUTH') {
+            this.facing = 'EAST';
+        }
+
+        else if (this.facing === 'EAST') {
+            this.facing = 'NORTH';
+        }
+
+        // Probably won't get to here as there's another check when placing
+        else {
+            throw new Error('Supplied invalid direction');
+        }
+
+        return this;
+    }
+
+    /**
+     * Rotate the robot right
+     * @return {Robot} - The robot
+     */
+    right() {
+        if (this.facing === 'NORTH') {
+            this.facing = 'EAST';
+        }
+
+        else if (this.facing === 'EAST') {
+            this.facing = 'SOUTH';
+        }
+
+        else if (this.facing === 'SOUTH') {
+            this.facing = 'WEST';
+        }
+
+        else if (this.facing === 'WEST') {
+            this.facing = 'NORTH';
+        }
+
+        // Probably won't get to here as there's another check when placing
+        else {
+            throw new Error('Supplied invalid direction');
+        }
+
+        return this;
     }
 }

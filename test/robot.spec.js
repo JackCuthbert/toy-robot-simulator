@@ -69,7 +69,7 @@ describe('Robot', () => {
                 name: 'JT'
             });
 
-            expect(jt.place(0,0,'NORTH').move().move().move().move().move()).to.eql({
+            expect(jt.place(0,0,'north').move().move().move().move().move()).to.eql({
                 x: 0,
                 y: 4,
                 facing: 'NORTH',
@@ -87,7 +87,7 @@ describe('Robot', () => {
                 name: 'Taylor'
             });
 
-            expect(taylor.place(0,0,'SOUTH').move().move()).to.eql({
+            expect(taylor.place(0,0,'south').move().move()).to.eql({
                 x: 0,
                 y: 0,
                 facing: 'SOUTH',
@@ -153,11 +153,29 @@ describe('Robot', () => {
     });
 
     describe('#left', () => {
-        it('should return the correct facing direction when rotating left after being placed');
+        it('should return the correct facing direction when rotating left after being placed', () => {
+            const howard = new Robot('Howard');
+
+            expect(howard.place(0,0, 'NORTH').right().facing).to.eql('EAST');
+            expect(howard.place(0,0, 'NORTH').right().right().facing).to.eql('SOUTH');
+            expect(howard.place(0,0, 'NORTH').right().right().right().facing).to.eql('WEST');
+            expect(howard.place(0,0, 'NORTH').right().right().right().right().facing).to.eql('NORTH');
+        });
     });
 
     describe('#right', () => {
-        it('should return the correct facing direction when rotating right after being placed');
+        it('should return the correct facing direction when rotating right after being placed', () => {
+            const tim = new Robot('Tim');
+
+            expect(tim.place(0,0, 'NORTH').left().facing).to.eql('WEST');
+            expect(tim.place(0,0, 'NORTH').left().left().facing).to.eql('SOUTH');
+            expect(tim.place(0,0, 'NORTH').left().left().left().facing).to.eql('EAST');
+            expect(tim.place(0,0, 'NORTH').left().left().left().left().facing).to.eql('NORTH');
+        });
+    });
+
+    describe('#place, #move, #left, #right', () => {
+        it('should return the correct coordinates and facing direction after multiple operations');
     });
 });
 
@@ -165,8 +183,7 @@ describe('Robot', () => {
 
 /*
 
-X
-
+Y
 
 4   .    .    .    .    .
 
@@ -178,6 +195,6 @@ X
 
 0   .    .    .    .    .
 
-    0    1    2    3    4     Y
+    0    1    2    3    4     X
 
 */
