@@ -1,3 +1,10 @@
+const directions = {
+    NORTH: 'NORTH',
+    SOUTH: 'SOUTH',
+    EAST: 'EAST',
+    WEST: 'WEST'
+};
+
 export default class Robot {
     /**
      * Create a new robot
@@ -73,19 +80,19 @@ export default class Robot {
      */
     move() {
         if (this.placed) {
-            if (this.facing === 'NORTH') {
+            if (this.facing === directions.NORTH) {
                 if (this._isValidPosition(this.y + 1)) this.y = this.y + 1;
             }
 
-            else if (this.facing === 'SOUTH') {
+            else if (this.facing === directions.SOUTH) {
                 if (this._isValidPosition(this.y - 1)) this.y = this.y - 1;
             }
 
-            else if (this.facing === 'EAST') {
+            else if (this.facing === directions.EAST) {
                 if (this._isValidPosition(this.x + 1)) this.x = this.x + 1;
             }
 
-            else if (this.facing === 'WEST') {
+            else if (this.facing === directions.WEST) {
                 if (this._isValidPosition(this.x - 1)) this.x = this.x - 1;
             }
         } else {
@@ -102,20 +109,20 @@ export default class Robot {
      */
     left() {
         if (this.placed) {
-            if (this.facing === 'NORTH') {
-                this.facing = 'WEST';
+            if (this.facing === directions.NORTH) {
+                this.facing = directions.WEST;
             }
 
-            else if (this.facing === 'WEST') {
-                this.facing = 'SOUTH';
+            else if (this.facing === directions.WEST) {
+                this.facing = directions.SOUTH;
             }
 
-            else if (this.facing === 'SOUTH') {
-                this.facing = 'EAST';
+            else if (this.facing === directions.SOUTH) {
+                this.facing = directions.EAST;
             }
 
-            else if (this.facing === 'EAST') {
-                this.facing = 'NORTH';
+            else if (this.facing === directions.EAST) {
+                this.facing = directions.NORTH;
             }
         } else {
             this.report();
@@ -131,20 +138,20 @@ export default class Robot {
      */
     right() {
         if (this.placed) {
-            if (this.facing === 'NORTH') {
-                this.facing = 'EAST';
+            if (this.facing === directions.NORTH) {
+                this.facing = directions.EAST;
             }
 
-            else if (this.facing === 'EAST') {
-                this.facing = 'SOUTH';
+            else if (this.facing === directions.EAST) {
+                this.facing = directions.SOUTH;
             }
 
-            else if (this.facing === 'SOUTH') {
-                this.facing = 'WEST';
+            else if (this.facing === directions.SOUTH) {
+                this.facing = directions.WEST;
             }
 
-            else if (this.facing === 'WEST') {
-                this.facing = 'NORTH';
+            else if (this.facing === directions.WEST) {
+                this.facing = directions.NORTH;
             }
 
         } else {

@@ -1,4 +1,4 @@
-import Robot from './src/Robot';
+import Robot from './lib/Robot';
 
 let robotElement = null;
 
