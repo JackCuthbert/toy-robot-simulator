@@ -10,7 +10,7 @@
 * I added a render function parameter to be called every time a movement operation runs
 
 > If I spent more time on this:
-* Work out a nicer way to call the rendering callback method it so I'm not repeating myself
+* Work out a nicer way to call the rendering callback method so I'm not repeating myself
 * Implement e2e testing for the GUI (PhantomJS/CasperJS or similar?)
 * Complete error handling for GUI
 * Add `try catch` around `new Error` calls
