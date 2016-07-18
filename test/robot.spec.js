@@ -1,7 +1,7 @@
 import chai, { expect } from 'chai';
 
 // To test...
-import Robot from '../src/robot';
+import Robot from '../src/Robot';
 
 describe('Robot', () => {
 
@@ -95,8 +95,61 @@ describe('Robot', () => {
             });
         });
 
-        it('should return the correct coordinates when moved WEST after being placed');
-        it('should return the correct coordinates when moved EAST after being placed');
+        it('should return the correct coordinates when moved WEST after being placed', () => {
+            const adam = new Robot('Adam');
+
+            expect(adam.place(1,3,'WEST').move()).to.eql({
+                x: 0,
+                y: 3,
+                facing: 'WEST',
+                name: 'Adam'
+            });
+
+            expect(adam.place(3,3,'WEST').move()).to.eql({
+                x: 2,
+                y: 3,
+                facing: 'WEST',
+                name: 'Adam'
+            });
+
+            expect(adam.place(3,3,'WEST').move().move().move()).to.eql({
+                x: 0,
+                y: 3,
+                facing: 'WEST',
+                name: 'Adam'
+            });
+
+            expect(adam.place(3,3,'WEST').move().move().move().move().move()).to.eql({
+                x: 0,
+                y: 3,
+                facing: 'WEST',
+                name: 'Adam'
+            });
+        });
+        it('should return the correct coordinates when moved EAST after being placed', () => {
+            const clint = new Robot('Clint');
+
+            expect(clint.place(0,0, 'EAST').move()).to.eql({
+                x: 1,
+                y: 0,
+                facing: 'EAST',
+                name: 'Clint'
+            });
+
+            expect(clint.place(1,2, 'EAST').move().move().move().move()).to.eql({
+                x: 4,
+                y: 2,
+                facing: 'EAST',
+                name: 'Clint'
+            });
+
+            expect(clint.place(1,3, 'EAST').move().move()).to.eql({
+                x: 3,
+                y: 3,
+                facing: 'EAST',
+                name: 'Clint'
+            });
+        });
     });
 
     describe('#left', () => {
