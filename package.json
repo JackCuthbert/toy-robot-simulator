@@ -5,7 +5,6 @@
   "main": "lib/Robot.js",
   "scripts": {
     "build": "webpack --config webpack.config.prod.js",
-    "prepublish": "webpack -p --config webpack.config.prod.js",
     "test": "mocha --compilers js:babel-core/register",
     "start": "webpack-dev-server --hot --content-base ./ --config webpack.config.js"
   },

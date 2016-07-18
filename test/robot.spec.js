@@ -156,10 +156,17 @@ describe('Robot', () => {
         it('should return the correct facing direction when rotating left after being placed', () => {
             const howard = new Robot('Howard');
 
+            // 360
             expect(howard.place(0,0, 'NORTH').right().facing).to.eql('EAST');
             expect(howard.place(0,0, 'NORTH').right().right().facing).to.eql('SOUTH');
             expect(howard.place(0,0, 'NORTH').right().right().right().facing).to.eql('WEST');
             expect(howard.place(0,0, 'NORTH').right().right().right().right().facing).to.eql('NORTH');
+
+            // Random
+            expect(howard.place(0,0, 'WEST').right().facing).to.eql('NORTH');
+            expect(howard.place(0,0, 'SOUTH').right().facing).to.eql('WEST');
+            expect(howard.place(0,0, 'EAST').right().right().facing).to.eql('WEST');
+            expect(howard.place(0,0, 'NORTH').right().right().right().facing).to.eql('WEST');
         });
     });
 
@@ -167,15 +174,24 @@ describe('Robot', () => {
         it('should return the correct facing direction when rotating right after being placed', () => {
             const tim = new Robot('Tim');
 
+            // 360
             expect(tim.place(0,0, 'NORTH').left().facing).to.eql('WEST');
             expect(tim.place(0,0, 'NORTH').left().left().facing).to.eql('SOUTH');
             expect(tim.place(0,0, 'NORTH').left().left().left().facing).to.eql('EAST');
             expect(tim.place(0,0, 'NORTH').left().left().left().left().facing).to.eql('NORTH');
+
+            // Random
+            expect(tim.place(0,0, 'WEST').left().facing).to.eql('SOUTH');
+            expect(tim.place(0,0, 'SOUTH').left().facing).to.eql('EAST');
+            expect(tim.place(0,0, 'EAST').left().left().facing).to.eql('WEST');
+            expect(tim.place(0,0, 'NORTH').left().left().left().facing).to.eql('EAST');
         });
     });
 
     describe('#place, #move, #left, #right', () => {
-        it('should return the correct coordinates and facing direction after multiple operations');
+        it('should return the correct coordinates and facing direction after multiple operations', () => {
+
+        });
     });
 });
 
