@@ -1,5 +1,7 @@
 # Toy Robot Simulator [![Travis branch](https://img.shields.io/travis/JackCuthbert/toy-robot-simulator/master.svg?maxAge=3600&style=flat-square)](https://travis-ci.org/JackCuthbert/toy-robot-simulator)
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/JackCuthbert/toy-robot-simulator.svg)](https://greenkeeper.io/)
+
 
 >Notes on implementation:
 * Opted to use JS class methods for PLACE, MOVE, LEFT, and RIGHT instead of reading from standard input
